@@ -1,0 +1,19 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "bg-header": {
+      "type": "bg-header",
+      "settings": {
+        "show_announcement": true,
+        "announcement": "★ Printed to order|Shipped worldwide|Certified fresh merch|Designed in the garage by Dan|Fulfilled by Gelato",
+        "logo_line1": "BITE",
+        "logo_line2": "GARAGE",
+        "cart_label": "Cart"
+      }
+    }
+  },
+  "order": [
+    "bg-header"
+  ]
+}

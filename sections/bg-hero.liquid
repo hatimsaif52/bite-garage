@@ -1,0 +1,71 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap">
+  <section class="bg-hero">
+    <div class="bg-hero__inner">
+      <div style="position:relative; z-index:2;">
+        {%- if section.settings.eyebrow != blank -%}
+        <div class="bg-eyebrow"><i></i>{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h1 class="bg-h1">{{ section.settings.title_top }}<br><span>{{ section.settings.title_bottom }}</span></h1>
+        <p class="bg-hero__sub">{{ section.settings.subtitle }}</p>
+        <div class="bg-hero__cta">
+          {%- if section.settings.cta1_label != blank -%}
+            <a class="bg-btn bg-btn--yellow" href="{{ section.settings.cta1_link }}">{{ section.settings.cta1_label }} &rarr;</a>
+          {%- endif -%}
+          {%- if section.settings.cta2_label != blank -%}
+            <a class="bg-btn bg-btn--outline" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_label }}</a>
+          {%- endif -%}
+        </div>
+        <div class="bg-hero__stats">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'stat' -%}
+              <span {{ block.shopify_attributes }}><b>{{ block.settings.value }}</b>{{ block.settings.label }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="bg-hero__art">
+        <div class="bg-hero__halo"></div>
+        <div class="bg-hero__disc"></div>
+        {%- if section.settings.image != blank -%}
+          <img class="bg-hero__img" src="{{ section.settings.image | image_url: width: 960 }}" alt="{{ section.settings.title_top }}">
+        {%- else -%}
+          <div class="bg-hero__img" style="display:flex;align-items:center;justify-content:center;background:#EFE2C2;"><span class="bg-slot">Badge artwork</span></div>
+        {%- endif -%}
+        {%- if section.settings.stamp_text != blank -%}
+          <div class="bg-stamp">{{ section.settings.stamp_text }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "BG Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Est. in the workshop · Bite Co." },
+    { "type": "text", "id": "title_top", "label": "Title top", "default": "Bite" },
+    { "type": "text", "id": "title_bottom", "label": "Title bottom", "default": "Garage" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Certified merch for certified bite mechanics. Bold characters, garage-grade graphics, printed fresh to order." },
+    { "type": "text", "id": "cta1_label", "label": "Primary CTA label", "default": "Shop Merch" },
+    { "type": "url", "id": "cta1_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary CTA label", "default": "New Drops" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Hero image / badge" },
+    { "type": "text", "id": "stamp_text", "label": "Corner stamp (use line breaks with Shift+Enter)", "default": "Certified Fresh" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "cotton heavyweight" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [ { "name": "BG Hero", "blocks": [ {"type":"stat"}, {"type":"stat"}, {"type":"stat"} ] } ]
+}
+{% endschema %}

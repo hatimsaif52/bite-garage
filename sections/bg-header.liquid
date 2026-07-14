@@ -1,0 +1,58 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<div class="bg-wrap">
+  {%- if section.settings.show_announcement -%}
+  <div class="bg-announce">
+    <div class="bg-announce__track">
+      {%- assign msgs = section.settings.announcement | split: '|' -%}
+      {%- for n in (1..2) -%}
+        <span class="bg-announce__set">
+          {%- for m in msgs -%}<span>{{ m | strip }}</span><span>&#10022;</span>{%- endfor -%}
+        </span>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  <header class="bg-header">
+    <div class="bg-header__inner">
+      <a href="{{ routes.root_url }}" class="bg-logo">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 92 }}" alt="{{ shop.name }}" width="46" height="46">
+        {%- endif -%}
+        <span class="bg-logo__type">{{ section.settings.logo_line1 }}<br><b>{{ section.settings.logo_line2 }}</b></span>
+      </a>
+      <nav class="bg-nav">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+      <div class="bg-header__right">
+        <span class="bg-cur">{{ cart.currency.iso_code }}</span>
+        <a href="{{ routes.cart_url }}" class="bg-cart">
+          {{ section.settings.cart_label }}
+          <span class="bg-cart__count">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+{% schema %}
+{
+  "name": "BG Header",
+  "settings": [
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "announcement", "label": "Announcement messages (separate with |)", "default": "★ Printed to order|Shipped worldwide|Certified fresh merch|Designed in the garage by Dan|Fulfilled by Gelato" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (badge)" },
+    { "type": "text", "id": "logo_line1", "label": "Logo line 1", "default": "BITE" },
+    { "type": "text", "id": "logo_line2", "label": "Logo line 2", "default": "GARAGE" },
+    { "type": "link_list", "id": "menu", "label": "Menu" },
+    { "type": "text", "id": "cart_label", "label": "Cart label", "default": "Cart" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

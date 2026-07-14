@@ -1,0 +1,18 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap">
+  <div class="bg-strip">
+    <div class="bg-strip__track">
+      {%- assign chunk = section.settings.text -%}
+      {%- for n in (1..8) -%}<span>{{ chunk }}&nbsp;&#10022;&nbsp;</span>{%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "BG Marquee strip",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Repeating text", "default": "Tees ✦ Hoodies ✦ Stickers ✦ Caps" }
+  ],
+  "presets": [ { "name": "BG Marquee strip" } ]
+}
+{% endschema %}

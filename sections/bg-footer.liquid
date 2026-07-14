@@ -1,0 +1,82 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap">
+  <footer class="bg-footer">
+    <div class="bg-footer__inner">
+      <div class="bg-footer__cols">
+        <div>
+          <div class="bg-footer__brand">
+            {%- if section.settings.logo != blank -%}
+              <img src="{{ section.settings.logo | image_url: width: 104 }}" alt="{{ shop.name }}">
+            {%- endif -%}
+            <b>{{ section.settings.logo_line1 }}<br><i>{{ section.settings.logo_line2 }}</i></b>
+          </div>
+          <p>{{ section.settings.blurb }}</p>
+        </div>
+
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu' -%}
+            <div {{ block.shopify_attributes }}>
+              <h4>{{ block.settings.heading }}</h4>
+              <ul>
+                {%- for link in block.settings.menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        <div>
+          <h4>{{ section.settings.news_heading }}</h4>
+          <p style="margin-bottom:14px;">{{ section.settings.news_text }}</p>
+          {%- form 'customer', class: 'bg-news' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder }}" required>
+            <button type="submit">{{ section.settings.news_button }}</button>
+          {%- endform -%}
+        </div>
+      </div>
+
+      <div class="bg-footer__bar">
+        <span>{{ section.settings.copyright }}</span>
+        <div class="bg-footer__links">
+          {%- for link in section.settings.policy_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "BG Footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (badge)" },
+    { "type": "text", "id": "logo_line1", "label": "Logo line 1", "default": "BITE" },
+    { "type": "text", "id": "logo_line2", "label": "Logo line 2", "default": "GARAGE" },
+    { "type": "textarea", "id": "blurb", "label": "Brand blurb", "default": "Certified merch for certified bite mechanics. Printed to order, shipped worldwide." },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "news_heading", "label": "Heading", "default": "Join the crew" },
+    { "type": "text", "id": "news_text", "label": "Text", "default": "Get first dibs on every drop straight from the workshop." },
+    { "type": "text", "id": "news_placeholder", "label": "Input placeholder", "default": "you@garage.com" },
+    { "type": "text", "id": "news_button", "label": "Button label", "default": "Join" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Bite Garage · Fulfilled by Gelato" },
+    { "type": "link_list", "id": "policy_menu", "label": "Policy menu" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

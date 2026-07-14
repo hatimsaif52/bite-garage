@@ -1,0 +1,47 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap">
+  <section class="bg-ig">
+    <div class="bg-ig__inner">
+      <div class="bg-sechead" style="margin-bottom:34px;">
+        <div>
+          <div class="bg-kicker" style="color:#F4B52A;">{{ section.settings.kicker }}</div>
+          <h2 class="bg-h2">{{ section.settings.heading }}</h2>
+        </div>
+        <a class="bg-ig__link" href="{{ section.settings.profile_url }}" target="_blank" rel="noopener">{{ section.settings.handle }} &rarr;</a>
+      </div>
+      <div class="bg-ig__grid">
+        {%- for block in section.blocks -%}
+          <a class="bg-ig__cell" href="{{ block.settings.link | default: section.settings.profile_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.caption }}" loading="lazy">
+            {%- endif -%}
+            <span>&#9634; IG &middot; {{ block.settings.caption }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "BG Instagram",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "// Follow the workshop" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From the Bite Garage" },
+    { "type": "text", "id": "handle", "label": "Handle", "default": "@bitemechanic" },
+    { "type": "url", "id": "profile_url", "label": "Profile URL" }
+  ],
+  "blocks": [
+    {
+      "type": "post", "name": "Post",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "spin szn" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [ { "name": "BG Instagram", "blocks": [ {"type":"post"},{"type":"post"},{"type":"post"},{"type":"post"},{"type":"post"},{"type":"post"} ] } ]
+}
+{% endschema %}

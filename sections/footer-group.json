@@ -1,0 +1,40 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "bg-footer": {
+      "type": "bg-footer",
+      "blocks": {
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop"
+          }
+        },
+        "garage": {
+          "type": "menu",
+          "settings": {
+            "heading": "Garage"
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "garage"
+      ],
+      "settings": {
+        "logo_line1": "BITE",
+        "logo_line2": "GARAGE",
+        "blurb": "Certified merch for certified bite mechanics. Printed to order, shipped worldwide.",
+        "news_heading": "Join the crew",
+        "news_text": "Get first dibs on every drop straight from the workshop.",
+        "news_placeholder": "you@garage.com",
+        "news_button": "Join",
+        "copyright": "© 2026 Bite Garage · Fulfilled by Gelato"
+      }
+    }
+  },
+  "order": [
+    "bg-footer"
+  ]
+}

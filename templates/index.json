@@ -1,0 +1,158 @@
+{
+  "sections": {
+    "hero": {
+      "type": "bg-hero",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "cotton heavyweight"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "24h",
+            "label": "print & pack"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "∞",
+            "label": "good vibes"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Est. in the workshop · Bite Co.",
+        "title_top": "Bite",
+        "title_bottom": "Garage",
+        "subtitle": "Certified merch for certified bite mechanics. Bold characters, garage-grade graphics, printed fresh to order.",
+        "cta1_label": "Shop Merch",
+        "cta2_label": "New Drops",
+        "stamp_text": "Certified Fresh"
+      }
+    },
+    "marquee": {
+      "type": "bg-marquee",
+      "settings": {
+        "text": "Tees ✦ Hoodies ✦ Stickers ✦ Caps"
+      }
+    },
+    "featured": {
+      "type": "bg-featured",
+      "settings": {
+        "kicker": "// Workshop inventory",
+        "heading": "Featured Merch",
+        "count": 8,
+        "tags": "Fresh Drop,Certified Pick,Mechanic Approved,Fresh Drop,New,Certified Pick,Mechanic Approved,Fresh Drop",
+        "view_all_label": "View all products"
+      }
+    },
+    "story": {
+      "type": "bg-brand-story",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "text": "Designed by Dan"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "text": "Printed on demand"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "text": "Shipped worldwide"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {}
+    },
+    "instagram": {
+      "type": "bg-instagram",
+      "blocks": {
+        "p1": {
+          "type": "post",
+          "settings": {
+            "caption": "spin szn"
+          }
+        },
+        "p2": {
+          "type": "post",
+          "settings": {
+            "caption": "new tee"
+          }
+        },
+        "p3": {
+          "type": "post",
+          "settings": {
+            "caption": "sticker drop"
+          }
+        },
+        "p4": {
+          "type": "post",
+          "settings": {
+            "caption": "workbench"
+          }
+        },
+        "p5": {
+          "type": "post",
+          "settings": {
+            "caption": "pit crew"
+          }
+        },
+        "p6": {
+          "type": "post",
+          "settings": {
+            "caption": "garage life"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ],
+      "settings": {
+        "handle": "@bitemechanic",
+        "profile_url": "https://instagram.com/bitemechanic"
+      }
+    },
+    "drop": {
+      "type": "bg-drop-banner",
+      "settings": {
+        "badge": "★ Incoming drop",
+        "heading": "New designs rolling out of the garage soon.",
+        "cta_label": "View Latest Drop"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "featured",
+    "story",
+    "instagram",
+    "drop"
+  ]
+}
