@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -8,13 +17,15 @@
         "shop": {
           "type": "menu",
           "settings": {
-            "heading": "Shop"
+            "heading": "Shop",
+            "menu": ""
           }
         },
         "garage": {
           "type": "menu",
           "settings": {
-            "heading": "Garage"
+            "heading": "Garage",
+            "menu": ""
           }
         }
       },
@@ -23,6 +34,7 @@
         "garage"
       ],
       "settings": {
+        "logo": "shopify://shop_images/bite-garage-badge.png",
         "logo_line1": "BITE",
         "logo_line2": "GARAGE",
         "blurb": "Certified merch for certified bite mechanics. Printed to order, shipped worldwide.",
@@ -30,7 +42,8 @@
         "news_text": "Get first dibs on every drop straight from the workshop.",
         "news_placeholder": "you@garage.com",
         "news_button": "Join",
-        "copyright": "© 2026 Bite Garage · Fulfilled by Gelato"
+        "copyright": "© 2026 Bite Garage · Fulfilled by Gelato",
+        "policy_menu": ""
       }
     }
   },
