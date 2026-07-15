@@ -63,7 +63,7 @@
       "settings": {
         "kicker": "// Workshop inventory",
         "heading": "Featured Merch",
-        "collection": "",
+        "collection": "featured-merch",
         "count": 8,
         "tags": "Fresh Drop,Certified Pick,Mechanic Approved,Fresh Drop,New,Certified Pick,Mechanic Approved,Fresh Drop",
         "view_all_label": "View all products",
