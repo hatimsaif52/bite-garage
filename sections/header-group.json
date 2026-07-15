@@ -19,7 +19,7 @@
         "logo": "shopify://shop_images/bite-garage-badge.png",
         "logo_line1": "BITE",
         "logo_line2": "GARAGE",
-        "menu": "",
+        "menu": "main-menu",
         "cart_label": "Cart"
       }
     }
