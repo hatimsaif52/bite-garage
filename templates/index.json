@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -36,8 +45,11 @@
         "title_bottom": "Garage",
         "subtitle": "Certified merch for certified bite mechanics. Bold characters, garage-grade graphics, printed fresh to order.",
         "cta1_label": "Shop Merch",
+        "cta1_link": "",
         "cta2_label": "New Drops",
-        "stamp_text": "Certified Fresh"
+        "cta2_link": "",
+        "image": "shopify://shop_images/bite-garage-badge.png",
+        "stamp_text": "Certified Fresh ★ no.001"
       }
     },
     "marquee": {
@@ -51,9 +63,11 @@
       "settings": {
         "kicker": "// Workshop inventory",
         "heading": "Featured Merch",
+        "collection": "",
         "count": 8,
         "tags": "Fresh Drop,Certified Pick,Mechanic Approved,Fresh Drop,New,Certified Pick,Mechanic Approved,Fresh Drop",
-        "view_all_label": "View all products"
+        "view_all_label": "View all products",
+        "view_all_link": ""
       }
     },
     "story": {
@@ -83,7 +97,16 @@
         "c2",
         "c3"
       ],
-      "settings": {}
+      "settings": {
+        "coin_top": "★ Official ★",
+        "coin_line1": "Bite",
+        "coin_line2": "Garage",
+        "coin_bottom": "Workshop Co.",
+        "kicker": "// From the garage",
+        "heading": "Built by a bite mechanic, for bite mechanics.",
+        "body1": "Bite Garage is a playful merch brand built around bold characters, mechanic-style graphics, and bite-inspired humor. Every design rolls straight off Dan's workbench and gets printed fresh to order.",
+        "body2": "No corporate gloss, no boring basics — just collectible gear stamped with garage-grade personality."
+      }
     },
     "instagram": {
       "type": "bg-instagram",
@@ -91,37 +114,43 @@
         "p1": {
           "type": "post",
           "settings": {
-            "caption": "spin szn"
+            "caption": "spin szn",
+            "link": ""
           }
         },
         "p2": {
           "type": "post",
           "settings": {
-            "caption": "new tee"
+            "caption": "new tee",
+            "link": ""
           }
         },
         "p3": {
           "type": "post",
           "settings": {
-            "caption": "sticker drop"
+            "caption": "sticker drop",
+            "link": ""
           }
         },
         "p4": {
           "type": "post",
           "settings": {
-            "caption": "workbench"
+            "caption": "workbench",
+            "link": ""
           }
         },
         "p5": {
           "type": "post",
           "settings": {
-            "caption": "pit crew"
+            "caption": "pit crew",
+            "link": ""
           }
         },
         "p6": {
           "type": "post",
           "settings": {
-            "caption": "garage life"
+            "caption": "garage life",
+            "link": ""
           }
         }
       },
@@ -134,6 +163,8 @@
         "p6"
       ],
       "settings": {
+        "kicker": "// Follow the workshop",
+        "heading": "From the Bite Garage",
         "handle": "@bitemechanic",
         "profile_url": "https://instagram.com/bitemechanic"
       }
@@ -143,7 +174,8 @@
       "settings": {
         "badge": "★ Incoming drop",
         "heading": "New designs rolling out of the garage soon.",
-        "cta_label": "View Latest Drop"
+        "cta_label": "View Latest Drop",
+        "cta_link": ""
       }
     }
   },
