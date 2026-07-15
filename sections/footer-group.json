@@ -18,14 +18,14 @@
           "type": "menu",
           "settings": {
             "heading": "Shop",
-            "menu": ""
+            "menu": "footer-shop-menu"
           }
         },
         "garage": {
           "type": "menu",
           "settings": {
             "heading": "Garage",
-            "menu": ""
+            "menu": "footer-garage-menu"
           }
         }
       },
@@ -43,7 +43,7 @@
         "news_placeholder": "you@garage.com",
         "news_button": "Join",
         "copyright": "© 2026 Bite Garage · Fulfilled by Gelato",
-        "policy_menu": ""
+        "policy_menu": "footer-policy-menu"
       }
     }
   },
