@@ -189,6 +189,7 @@
 .bg-opt__vals{ display:flex; gap:10px; flex-wrap:wrap; }
 .bg-opt__vals--color{ gap:12px; }
 .bg-swatch{ cursor:pointer; display:inline-block; }
+.bg-opt input[type="radio"]{ position:absolute; opacity:0; width:0; height:0; margin:0; pointer-events:none; }
 .bg-swatch__dot{ display:block; width:42px; height:42px; border-radius:50%; border:3px solid #181410; background:var(--sw,#ccc); outline:0 solid transparent; outline-offset:3px; transition:outline .12s; }
 .bg-swatch.is-active .bg-swatch__dot{ outline:3px solid #2350C8; }
 .bg-pill{ cursor:pointer; }
