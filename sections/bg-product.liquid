@@ -1,5 +1,13 @@
 {{ 'bg-theme.css' | asset_url | stylesheet_tag }}
 {%- assign cv = product.selected_or_first_available_variant -%}
+{%- comment -%} Per-product content: metafields first, section settings as fallback {%- endcomment -%}
+{%- assign mf = product.metafields.custom -%}
+{%- assign pdp_eyebrow    = mf.eyebrow.value    | default: section.settings.subtype -%}
+{%- assign pdp_reviews    = mf.reviews.value    | default: section.settings.reviews -%}
+{%- assign pdp_badge      = mf.badge.value      | default: section.settings.badge -%}
+{%- assign pdp_stamp      = mf.stamp.value      | default: section.settings.stamp -%}
+{%- assign pdp_sizechart  = mf.size_chart_url.value | default: section.settings.size_chart_url -%}
+{%- assign pdp_accordions = mf.accordions.value -%}
 <div class="bg-wrap" id="bg-pdp-{{ section.id }}">
   <div class="bg-section bg-pdp">
 
@@ -20,8 +28,8 @@
       <!-- GALLERY -->
       <div class="bg-gallery">
         <div class="bg-gallery__main">
-          {%- if section.settings.badge != blank -%}<span class="bg-pdp__badge">{{ section.settings.badge }}</span>{%- endif -%}
-          {%- if section.settings.stamp != blank -%}<span class="bg-pdp__stamp">{{ section.settings.stamp }}</span>{%- endif -%}
+          {%- if pdp_badge != blank -%}<span class="bg-pdp__badge">{{ pdp_badge }}</span>{%- endif -%}
+          {%- if pdp_stamp != blank -%}<span class="bg-pdp__stamp">{{ pdp_stamp }}</span>{%- endif -%}
           {%- if product.featured_media -%}
             <img id="bg-main-img" src="{{ product.featured_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}">
           {%- else -%}
@@ -41,7 +49,7 @@
 
       <!-- BUY BOX -->
       <div class="bg-buy">
-        <div class="bg-buy__eyebrow">{{ product.type | default: 'Merch' }}{% if section.settings.subtype != blank %} &middot; {{ section.settings.subtype }}{% endif %}</div>
+        <div class="bg-buy__eyebrow">{{ product.type | default: 'Merch' }}{% if pdp_eyebrow != blank %} &middot; {{ pdp_eyebrow }}{% endif %}</div>
         <h1 class="bg-buy__title">{{ product.title }}</h1>
 
         <div class="bg-buy__pricerow">
@@ -51,8 +59,8 @@
           {%- else -%}
             <span class="bg-buy__was" data-compare hidden></span>
           {%- endif -%}
-          {%- if section.settings.reviews != blank -%}
-            <span class="bg-buy__reviews">&#9733;&#9733;&#9733;&#9733;&#9733; <em>{{ section.settings.reviews }}</em></span>
+          {%- if pdp_reviews != blank -%}
+            <span class="bg-buy__reviews">&#9733;&#9733;&#9733;&#9733;&#9733; <em>{{ pdp_reviews }}</em></span>
           {%- endif -%}
         </div>
 
@@ -67,9 +75,18 @@
             {%- for option in product.options_with_values -%}
               {%- assign dn = option.name | downcase -%}
               {%- assign is_color = false -%}
+              {%- assign is_size = false -%}
               {%- if dn contains 'color' or dn contains 'colour' -%}{%- assign is_color = true -%}{%- endif -%}
+              {%- if dn contains 'size' -%}{%- assign is_size = true -%}{%- endif -%}
               <div class="bg-opt" data-option-position="{{ option.position }}">
-                <div class="bg-opt__label">{{ option.name }}{% if is_color %} &mdash; <span data-color-name>{{ option.selected_value }}</span>{% endif %}</div>
+                {%- if is_size and pdp_sizechart != blank -%}
+                  <div class="bg-opt__labelrow">
+                    <div class="bg-opt__label">{{ option.name }}</div>
+                    <a class="bg-sizechart" href="{{ pdp_sizechart }}">Size chart &#9656;</a>
+                  </div>
+                {%- else -%}
+                  <div class="bg-opt__label">{{ option.name }}{% if is_color %} &mdash; <span data-color-name>{{ option.selected_value }}</span>{% endif %}</div>
+                {%- endif -%}
                 <div class="bg-opt__vals{% if is_color %} bg-opt__vals--color{% endif %}">
                   {%- for value in option.values -%}
                     {%- assign checked = false -%}
@@ -122,16 +139,28 @@
         </div>
         {%- endif -%}
 
-        {%- assign accs = section.blocks | where: 'type', 'accordion' -%}
-        {%- if accs.size > 0 -%}
+        {%- comment -%} Accordions: per-product metaobject list first, section blocks as fallback {%- endcomment -%}
+        {%- if pdp_accordions != blank and pdp_accordions.size > 0 -%}
         <div class="bg-acc">
-          {%- for block in accs -%}
-            <details class="bg-acc__item"{% if block.settings.open %} open{% endif %} {{ block.shopify_attributes }}>
-              <summary class="bg-acc__head">{{ block.settings.title }}<span class="bg-acc__sign"></span></summary>
-              <div class="bg-acc__body">{{ block.settings.body }}</div>
+          {%- for entry in pdp_accordions -%}
+            <details class="bg-acc__item"{% if forloop.first %} open{% endif %}>
+              <summary class="bg-acc__head">{{ entry.title }}<span class="bg-acc__sign"></span></summary>
+              <div class="bg-acc__body">{{ entry.body }}</div>
             </details>
           {%- endfor -%}
         </div>
+        {%- else -%}
+          {%- assign accs = section.blocks | where: 'type', 'accordion' -%}
+          {%- if accs.size > 0 -%}
+          <div class="bg-acc">
+            {%- for block in accs -%}
+              <details class="bg-acc__item"{% if block.settings.open %} open{% endif %} {{ block.shopify_attributes }}>
+                <summary class="bg-acc__head">{{ block.settings.title }}<span class="bg-acc__sign"></span></summary>
+                <div class="bg-acc__body">{{ block.settings.body }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
         {%- endif -%}
       </div>
     </div>
@@ -241,11 +270,13 @@
   "name": "BG Product",
   "tag": "section",
   "settings": [
+    { "type": "paragraph", "content": "Eyebrow, reviews, badge, stamp, size-chart and accordions are read from product metafields first (see INSTALL.md). The values below are fallbacks used when a product has no metafield set." },
     { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
-    { "type": "text", "id": "badge", "label": "Corner badge (top-left)", "default": "Mechanic Approved" },
-    { "type": "textarea", "id": "stamp", "label": "Round stamp (bottom-right)", "default": "Certified Fresh" },
-    { "type": "text", "id": "subtype", "label": "Eyebrow suffix (after product type)", "default": "Unisex Heavyweight" },
-    { "type": "text", "id": "reviews", "label": "Review text (leave blank to hide)", "default": "(126 reviews)" },
+    { "type": "text", "id": "badge", "label": "Fallback corner badge (top-left)", "default": "Mechanic Approved" },
+    { "type": "textarea", "id": "stamp", "label": "Fallback round stamp (bottom-right)", "default": "Certified Fresh" },
+    { "type": "text", "id": "subtype", "label": "Fallback eyebrow suffix (after product type)", "default": "Unisex Heavyweight" },
+    { "type": "text", "id": "reviews", "label": "Fallback review text (blank to hide)", "default": "(126 reviews)" },
+    { "type": "url", "id": "size_chart_url", "label": "Fallback size-chart link" },
     { "type": "text", "id": "add_label", "label": "Add-to-cart label", "default": "Add to cart" },
     { "type": "checkbox", "id": "show_buy_now", "label": "Show dynamic Buy-it-now button", "default": true },
     { "type": "url", "id": "buy_now_link", "label": "Fallback Buy-it-now link (if dynamic checkout off)" }

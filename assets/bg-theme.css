@@ -182,6 +182,10 @@
 .bg-opt{ margin-bottom:24px; }
 .bg-opt__label{ font-family:Oswald,sans-serif; font-weight:700; font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px; }
 .bg-opt__label span{ color:#2350C8; }
+.bg-opt__labelrow{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.bg-opt__labelrow .bg-opt__label{ margin-bottom:0; }
+.bg-sizechart{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; color:#2350C8; text-decoration:none; text-transform:uppercase; }
+.bg-sizechart:hover{ text-decoration:underline; }
 .bg-opt__vals{ display:flex; gap:10px; flex-wrap:wrap; }
 .bg-opt__vals--color{ gap:12px; }
 .bg-swatch{ cursor:pointer; display:inline-block; }
