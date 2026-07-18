@@ -8,6 +8,7 @@
 {%- assign pdp_stamp      = mf.stamp.value      | default: section.settings.stamp -%}
 {%- assign pdp_sizechart  = mf.size_chart_url.value | default: section.settings.size_chart_url -%}
 {%- assign pdp_accordions = mf.accordions.value -%}
+{%- assign pdp_perks      = mf.perks.value -%}
 <div class="bg-wrap" id="bg-pdp-{{ section.id }}">
   <div class="bg-section bg-pdp">
 
@@ -127,16 +128,28 @@
           <a href="{{ section.settings.buy_now_link }}" class="bg-buynow">Buy it now</a>
         {%- endif -%}
 
-        {%- assign perks = section.blocks | where: 'type', 'perk' -%}
-        {%- if perks.size > 0 -%}
+        {%- comment -%} Perks: per-product metaobject list first, section blocks as fallback {%- endcomment -%}
+        {%- if pdp_perks != blank and pdp_perks.size > 0 -%}
         <div class="bg-perks">
-          {%- for block in perks -%}
-            <div class="bg-perk" {{ block.shopify_attributes }}>
-              <div class="bg-perk__icon">{{ block.settings.icon }}</div>
-              <div class="bg-perk__label">{{ block.settings.label }}</div>
+          {%- for entry in pdp_perks -%}
+            <div class="bg-perk">
+              <div class="bg-perk__icon">{{ entry.icon }}</div>
+              <div class="bg-perk__label">{{ entry.label }}</div>
             </div>
           {%- endfor -%}
         </div>
+        {%- else -%}
+          {%- assign perks = section.blocks | where: 'type', 'perk' -%}
+          {%- if perks.size > 0 -%}
+          <div class="bg-perks">
+            {%- for block in perks -%}
+              <div class="bg-perk" {{ block.shopify_attributes }}>
+                <div class="bg-perk__icon">{{ block.settings.icon }}</div>
+                <div class="bg-perk__label">{{ block.settings.label }}</div>
+              </div>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
         {%- endif -%}
 
         {%- comment -%} Accordions: per-product metaobject list first, section blocks as fallback {%- endcomment -%}
