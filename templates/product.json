@@ -12,30 +12,6 @@
     "main": {
       "type": "bg-product",
       "blocks": {
-        "perk1": {
-          "type": "perk",
-          "disabled": true,
-          "settings": {
-            "icon": "✦",
-            "label": "Printed to order"
-          }
-        },
-        "perk2": {
-          "type": "perk",
-          "disabled": true,
-          "settings": {
-            "icon": "↻",
-            "label": "Easy returns"
-          }
-        },
-        "perk3": {
-          "type": "perk",
-          "disabled": true,
-          "settings": {
-            "icon": "✈",
-            "label": "Ships worldwide"
-          }
-        },
         "acc1": {
           "type": "accordion",
           "settings": {
@@ -62,9 +38,6 @@
         }
       },
       "block_order": [
-        "perk1",
-        "perk2",
-        "perk3",
         "acc1",
         "acc2",
         "acc3"
