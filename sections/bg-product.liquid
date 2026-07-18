@@ -189,16 +189,30 @@
   var swatchMap = {
     "garage cream":"#F4E8CE","cream":"#F4E8CE","natural":"#F4E8CE",
     "cobalt blue":"#2350C8","cobalt":"#2350C8","blue":"#2350C8","royal":"#2350C8",
+    "flo blue":"#3f74c9","sky":"#7db4e6",
     "shop black":"#181410","black":"#181410","ink":"#181410",
-    "hazard yellow":"#F4B52A","yellow":"#F4B52A","gold":"#F4B52A",
+    "hazard yellow":"#F4B52A","yellow":"#F4B52A","gold":"#F4B52A","butter":"#f2e0a4",
     "white":"#ffffff","red":"#c0392b","green":"#2e7d32","navy":"#1a2a52",
+    "brick":"#9c4a37","berry":"#7c3a54","watermelon":"#e15b62","violet":"#8a7bc4",
     "grey":"#8a8a8a","gray":"#8a8a8a","heather grey":"#9a978f","sand":"#d8c9a3"
   };
+
+  // color option value -> that color's variant image (first variant with an image for the color)
+  var colorImage = {};
+  variants.forEach(function(v){
+    var img = v.featured_image && v.featured_image.src;
+    if(!img) return;
+    v.options.forEach(function(o){
+      var k = String(o).toLowerCase().trim();
+      if(!colorImage[k]) colorImage[k] = img;
+    });
+  });
 
   // paint swatch dots that have no Shopify swatch color
   root.querySelectorAll('.bg-swatch').forEach(function(l){
     if(l.style.getPropertyValue('--sw')) return;
-    var name=(l.querySelector('[data-sw-name]')||{}).dataset&&l.querySelector('[data-sw-name]').dataset.swName;
+    var el = l.querySelector('[data-sw-name]');
+    var name = el && el.dataset.swName;
     if(name && swatchMap[name]) l.style.setProperty('--sw', swatchMap[name]);
   });
 
@@ -252,6 +266,17 @@
     if(compareEl){
       if(v.compare_at_price && v.compare_at_price>v.price){ compareEl.textContent=money(v.compare_at_price); compareEl.hidden=false; }
       else compareEl.hidden=true;
+    }
+    // swap gallery to the selected color's image
+    var colorInput = root.querySelector('.bg-opt__vals--color [data-opt]:checked');
+    var swapSrc = (v.featured_image && v.featured_image.src)
+                || (colorInput && colorImage[colorInput.value.toLowerCase().trim()]);
+    if(mainImg && swapSrc){
+      mainImg.src = swapSrc;
+      var base = swapSrc.split('?')[0];
+      root.querySelectorAll('[data-thumb]').forEach(function(b){
+        b.classList.toggle('is-active', b.dataset.src && b.dataset.src.split('?')[0] === base);
+      });
     }
     addBtn.disabled=!v.available;
     addLabel.textContent=v.available?addText:soldLabel;
