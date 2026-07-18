@@ -12,22 +12,73 @@
     "main": {
       "type": "bg-product",
       "blocks": {
-        "perk1": { "type": "perk", "settings": { "icon": "\u2726", "label": "Printed to order" } },
-        "perk2": { "type": "perk", "settings": { "icon": "\u21bb", "label": "Easy returns" } },
-        "perk3": { "type": "perk", "settings": { "icon": "\u2708", "label": "Ships worldwide" } },
-        "acc1": { "type": "accordion", "settings": { "title": "Details & Fit", "open": true, "body": "<p>Unisex heavyweight 240gsm cotton with a relaxed garage fit. The official Bite Garage chest badge is printed using durable, wash-fast inks. Model is 6'1\" wearing size L.</p>" } },
-        "acc2": { "type": "accordion", "settings": { "title": "Materials & Care", "body": "<p>100% combed ring-spun cotton (heather colors contain polyester). Machine wash cold inside-out, hang dry, do not iron directly over the print.</p>" } },
-        "acc3": { "type": "accordion", "settings": { "title": "Shipping & Returns", "body": "<p>Each item is printed to order by Gelato and ships within 24\u201372 hours. Worldwide delivery in 4\u20139 business days. Easy 30-day returns on unworn gear.</p>" } }
+        "perk1": {
+          "type": "perk",
+          "disabled": true,
+          "settings": {
+            "icon": "✦",
+            "label": "Printed to order"
+          }
+        },
+        "perk2": {
+          "type": "perk",
+          "disabled": true,
+          "settings": {
+            "icon": "↻",
+            "label": "Easy returns"
+          }
+        },
+        "perk3": {
+          "type": "perk",
+          "disabled": true,
+          "settings": {
+            "icon": "✈",
+            "label": "Ships worldwide"
+          }
+        },
+        "acc1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Details & Fit",
+            "body": "<p>Unisex heavyweight 240gsm cotton with a relaxed garage fit. The official Bite Garage chest badge is printed using durable, wash-fast inks. Model is 6'1\" wearing size L.</p>",
+            "open": true
+          }
+        },
+        "acc2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Materials & Care",
+            "body": "<p>100% combed ring-spun cotton (heather colors contain polyester). Machine wash cold inside-out, hang dry, do not iron directly over the print.</p>",
+            "open": false
+          }
+        },
+        "acc3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "body": "<p>Each item is printed to order by Gelato and ships within 24–72 hours. Worldwide delivery in 4–9 business days. Easy 30-day returns on unworn gear.</p>",
+            "open": false
+          }
+        }
       },
-      "block_order": ["perk1", "perk2", "perk3", "acc1", "acc2", "acc3"],
+      "block_order": [
+        "perk1",
+        "perk2",
+        "perk3",
+        "acc1",
+        "acc2",
+        "acc3"
+      ],
       "settings": {
         "show_breadcrumb": true,
         "badge": "Mechanic Approved",
         "stamp": "Certified Fresh",
         "subtype": "Unisex Heavyweight",
         "reviews": "(126 reviews)",
+        "size_chart_url": "",
         "add_label": "Add to cart",
-        "show_buy_now": true
+        "show_buy_now": true,
+        "buy_now_link": ""
       }
     },
     "related": {
@@ -35,10 +86,14 @@
       "settings": {
         "kicker": "// Pairs well with",
         "heading": "More from the garage",
+        "collection": "",
         "count": 4,
         "tags": "Fresh Drop,Certified Pick,Fresh Drop,New"
       }
     }
   },
-  "order": ["main", "related"]
+  "order": [
+    "main",
+    "related"
+  ]
 }
