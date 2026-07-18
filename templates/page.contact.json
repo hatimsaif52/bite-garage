@@ -1,6 +1,10 @@
 /*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
 {
@@ -8,12 +12,27 @@
     "main": {
       "type": "bg-contact",
       "blocks": {
-        "b1": { "type": "info", "settings": { "label": "Email", "value": "hello@bitegarage.com", "link": "mailto:hello@bitegarage.com" } },
-        "b2": { "type": "info", "settings": { "label": "Instagram", "value": "@bitemechanic", "link": "https://instagram.com/bitemechanic" } },
-        "b3": { "type": "info", "settings": { "label": "Support hours", "value": "Mon\u2013Fri \u00b7 9am\u20135pm PT" } },
-        "b4": { "type": "info", "settings": { "label": "Returns", "value": "30-day easy returns on unworn gear" } }
+        "b1": {
+          "type": "info",
+          "settings": {
+            "label": "Questions about your order? ",
+            "value": "cs@getreviv.com",
+            "link": "mailto:cs@getreviv.com"
+          }
+        },
+        "b2": {
+          "type": "info",
+          "settings": {
+            "label": "Instagram",
+            "value": "@bitemechanic",
+            "link": "https://instagram.com/bitemechanic"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4"],
+      "block_order": [
+        "b1",
+        "b2"
+      ],
       "settings": {
         "kicker": "// Open the bay doors",
         "heading": "Get in touch",
@@ -21,5 +40,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
