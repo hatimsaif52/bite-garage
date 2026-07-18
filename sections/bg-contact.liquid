@@ -1,0 +1,97 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap" id="bg-contact-{{ section.id }}">
+  <section class="bg-collbanner">
+    <div class="bg-collbanner__inner">
+      <div class="bg-crumb"><a href="{{ routes.root_url }}">Home</a> &nbsp;/&nbsp; <span>{{ section.settings.heading }}</span></div>
+      {%- if section.settings.kicker != blank -%}<div class="bg-kicker">{{ section.settings.kicker }}</div>{%- endif -%}
+      <h1 class="bg-collbanner__title">{{ section.settings.heading }}</h1>
+      {%- if section.settings.subhead != blank -%}<div class="bg-collbanner__desc">{{ section.settings.subhead }}</div>{%- endif -%}
+    </div>
+  </section>
+
+  <section class="bg-section bg-contact">
+    <div class="bg-contact__grid">
+
+      <div class="bg-contact__formwrap">
+        {%- assign posted = false -%}
+        {%- if form.posted_successfully? -%}{%- assign posted = true -%}{%- endif -%}
+        {%- if posted -%}
+          <div class="bg-formsuccess">&#10003; Thanks &mdash; your message is in the shop queue. We'll get back within 1&ndash;2 business days.</div>
+        {%- endif -%}
+        {%- form 'contact', id: 'bg-contact-form' -%}
+          {%- if form.errors -%}
+            <div class="bg-formerror">
+              Please fix: {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+          <div class="bg-field__row">
+            <label class="bg-field">
+              <span class="bg-field__label">Name</span>
+              <input type="text" name="contact[name]" value="{{ form.name }}" required>
+            </label>
+            <label class="bg-field">
+              <span class="bg-field__label">Email</span>
+              <input type="email" name="contact[email]" value="{{ form.email }}" required>
+            </label>
+          </div>
+          <label class="bg-field">
+            <span class="bg-field__label">Subject</span>
+            <input type="text" name="contact[subject]" value="{{ form.subject }}" placeholder="Order help, wholesale, press…">
+          </label>
+          <label class="bg-field">
+            <span class="bg-field__label">Message</span>
+            <textarea name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+          </label>
+          <button type="submit" class="bg-checkout bg-checkout--form">Send message &rarr;</button>
+        {%- endform -%}
+      </div>
+
+      <aside class="bg-contact__info">
+        {%- for block in section.blocks -%}
+          <div class="bg-info__item" {{ block.shopify_attributes }}>
+            <div class="bg-info__label">{{ block.settings.label }}</div>
+            {%- if block.settings.link != blank -%}
+              <a class="bg-info__val" href="{{ block.settings.link }}">{{ block.settings.value }}</a>
+            {%- else -%}
+              <div class="bg-info__val">{{ block.settings.value }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </aside>
+
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "BG Contact",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "// Open the bay doors" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+    { "type": "textarea", "id": "subhead", "label": "Subheading", "default": "Questions about an order, wholesale, or a custom print run? Roll up to the counter." }
+  ],
+  "blocks": [
+    {
+      "type": "info",
+      "name": "Info item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Email" },
+        { "type": "text", "id": "value", "label": "Value", "default": "hello@bitegarage.com" },
+        { "type": "text", "id": "link", "label": "Link (optional, e.g. mailto: / tel:)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BG Contact",
+      "blocks": [
+        { "type": "info", "settings": { "label": "Email", "value": "hello@bitegarage.com", "link": "mailto:hello@bitegarage.com" } },
+        { "type": "info", "settings": { "label": "Instagram", "value": "@bitemechanic", "link": "https://instagram.com/bitemechanic" } },
+        { "type": "info", "settings": { "label": "Support hours", "value": "Mon–Fri · 9am–5pm PT" } },
+        { "type": "info", "settings": { "label": "Returns", "value": "30-day easy returns on unworn gear" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,115 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap" id="bg-cart-{{ section.id }}">
+  <section class="bg-section bg-cartpage">
+    <div class="bg-crumb"><a href="{{ routes.root_url }}">Home</a> &nbsp;/&nbsp; <span>Cart</span></div>
+    <div class="bg-cart__head">
+      <h1 class="bg-cart__title">{{ section.settings.heading }}</h1>
+      <span class="bg-cart__count">{{ cart.item_count }} item{% unless cart.item_count == 1 %}s{% endunless %}</span>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" id="bg-cart-form" class="bg-cart__grid">
+
+      <div class="bg-cart__items">
+        <div class="bg-lrow bg-lrow--head">
+          <span>Product</span><span>Price</span><span>Qty</span><span>Total</span><span></span>
+        </div>
+        {%- for item in cart.items -%}
+        <div class="bg-lrow" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+          <div class="bg-litem">
+            <a class="bg-lthumb" href="{{ item.url }}">
+              {%- if item.image -%}<img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}">{%- else -%}<span class="bg-slot">&#9634;</span>{%- endif -%}
+            </a>
+            <div class="bg-linfo">
+              <a class="bg-lname" href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}<div class="bg-lvar">{{ item.variant.title }}</div>{%- endunless -%}
+              {%- if item.selling_plan_allocation -%}<div class="bg-lvar">{{ item.selling_plan_allocation.selling_plan.name }}</div>{%- endif -%}
+              {%- if item.line_level_discount_allocations.size > 0 -%}
+                {%- for alloc in item.line_level_discount_allocations -%}
+                  <div class="bg-ldisc">&#9733; {{ alloc.discount_application.title }} (&minus;{{ alloc.amount | money }})</div>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="bg-lcell" data-label="Price">{{ item.original_price | money }}</div>
+          <div class="bg-lcell" data-label="Qty">
+            <div class="bg-qty bg-qty--sm">
+              <button type="button" class="bg-qty__btn" data-cart-dec aria-label="Decrease">&ndash;</button>
+              <input class="bg-qty__val" type="number" min="0" name="updates[]" value="{{ item.quantity }}" data-cart-qty aria-label="Quantity for {{ item.title | escape }}">
+              <button type="button" class="bg-qty__btn" data-cart-inc aria-label="Increase">+</button>
+            </div>
+          </div>
+          <div class="bg-lcell bg-lcell--total" data-label="Total">{{ item.original_line_price | money }}</div>
+          <div class="bg-lcell bg-lcell--remove">
+            <a href="{{ item.url_to_remove }}" class="bg-lremove" aria-label="Remove {{ item.title | escape }}">&times;</a>
+          </div>
+        </div>
+        {%- endfor -%}
+
+        <div class="bg-cart__actions">
+          <a href="{{ routes.all_products_collection_url }}" class="bg-cart__cont">&larr; Keep shopping</a>
+          <button type="submit" name="update" class="bg-cart__update">Update cart</button>
+        </div>
+      </div>
+
+      <aside class="bg-cart__summary">
+        <h2 class="bg-sum__title">Order summary</h2>
+        <div class="bg-sum__row"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- for app in cart.cart_level_discount_applications -%}
+            <div class="bg-sum__row bg-sum__row--disc"><span>&#9733; {{ app.title }}</span><span>&minus;{{ app.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+        {%- endif -%}
+        <div class="bg-sum__note">Shipping &amp; taxes calculated at checkout.</div>
+
+        {%- if section.settings.show_note -%}
+        <label class="bg-sum__notelabel" for="bg-cart-note">Order notes</label>
+        <textarea id="bg-cart-note" name="note" class="bg-sum__textarea" placeholder="Anything we should know?">{{ cart.note }}</textarea>
+        {%- endif -%}
+
+        <div class="bg-sum__total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+        <button type="submit" name="checkout" class="bg-checkout">Checkout &rarr;</button>
+        {%- if additional_checkout_buttons -%}
+          <div class="bg-sum__express">{{ content_for_additional_checkout_buttons }}</div>
+        {%- endif -%}
+        <div class="bg-sum__trust">
+          {%- if section.settings.trust != blank -%}{{ section.settings.trust }}{%- endif -%}
+        </div>
+      </aside>
+    </form>
+
+    {%- else -%}
+    <div class="bg-empty bg-empty--cart">
+      <div class="bg-empty__icon">&#9881;</div>
+      <p class="bg-empty__msg">Your cart is empty.</p>
+      <a class="bg-checkout bg-checkout--inline" href="{{ routes.all_products_collection_url }}">Start shopping &rarr;</a>
+    </div>
+    {%- endif -%}
+  </section>
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('bg-cart-{{ section.id }}');
+  if(!root) return;
+  var form=root.querySelector('#bg-cart-form');
+  root.querySelectorAll('.bg-qty--sm').forEach(function(q){
+    var input=q.querySelector('[data-cart-qty]');
+    q.querySelector('[data-cart-dec]').addEventListener('click',function(){ input.value=Math.max(0,(parseInt(input.value,10)||0)-1); });
+    q.querySelector('[data-cart-inc]').addEventListener('click',function(){ input.value=(parseInt(input.value,10)||0)+1; });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BG Cart",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Garage Cart" },
+    { "type": "checkbox", "id": "show_note", "label": "Show order-notes field", "default": true },
+    { "type": "richtext", "id": "trust", "label": "Trust text under checkout", "default": "<p>Secure checkout &middot; Printed to order &middot; 30-day returns</p>" }
+  ],
+  "presets": [ { "name": "BG Cart" } ]
+}
+{% endschema %}
