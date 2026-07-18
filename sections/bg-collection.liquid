@@ -1,0 +1,125 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap" id="bg-coll-{{ section.id }}">
+
+  <!-- BANNER -->
+  <section class="bg-collbanner">
+    <div class="bg-collbanner__inner">
+      <div class="bg-crumb">
+        <a href="{{ routes.root_url }}">Home</a> &nbsp;/&nbsp; <span>{{ collection.title }}</span>
+      </div>
+      {%- if section.settings.kicker != blank -%}<div class="bg-kicker">{{ section.settings.kicker }}</div>{%- endif -%}
+      <h1 class="bg-collbanner__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank and section.settings.show_desc -%}
+        <div class="bg-collbanner__desc">{{ collection.description | strip_html | truncatewords: 40 }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="bg-section bg-collbody">
+
+    <!-- TOOLBAR -->
+    <div class="bg-toolbar">
+      <div class="bg-toolbar__count">
+        {%- if collection.products_count == 1 -%}1 item{%- else -%}{{ collection.products_count }} items{%- endif -%}
+      </div>
+
+      {%- if section.settings.show_filters and collection.all_tags.size > 0 -%}
+      <div class="bg-filters">
+        <a href="{{ collection.url }}" class="bg-chip{% unless current_tags %} is-active{% endunless %}">All</a>
+        {%- for tag in collection.all_tags -%}
+          {%- if current_tags contains tag -%}
+            <a href="{{ collection.url }}" class="bg-chip is-active">{{ tag }} &times;</a>
+          {%- else -%}
+            <a href="{{ collection.url }}/{{ tag | handle }}" class="bg-chip">{{ tag }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_sort -%}
+      <form class="bg-sort" method="get">
+        <label for="bg-sort-{{ section.id }}">Sort</label>
+        <select id="bg-sort-{{ section.id }}" name="sort_by" onchange="this.form.submit()">
+          {%- assign cur = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for opt in collection.sort_options -%}
+            <option value="{{ opt.value }}"{% if opt.value == cur %} selected{% endif %}>{{ opt.name }}</option>
+          {%- endfor -%}
+        </select>
+      </form>
+      {%- endif -%}
+    </div>
+
+    <!-- GRID -->
+    {%- paginate collection.products by section.settings.per_page -%}
+    <div class="bg-grid">
+      {%- for product in collection.products -%}
+        <a class="bg-card" href="{{ product.url }}">
+          <div class="bg-card__media">
+            {%- if product.compare_at_price > product.price -%}
+              <span class="bg-tag bg-tag--sale">Sale</span>
+            {%- elsif product.tags contains 'New' or product.tags contains 'new' -%}
+              <span class="bg-tag">New</span>
+            {%- else -%}
+              <span class="bg-tag">{{ product.type | default: 'Fresh Drop' }}</span>
+            {%- endif -%}
+            {%- unless product.available -%}<span class="bg-tag bg-tag--sold">Sold out</span>{%- endunless -%}
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
+            {%- else -%}
+              <span class="bg-slot">&#9634; {{ product.title }}</span>
+            {%- endif -%}
+          </div>
+          <div class="bg-card__body">
+            <div class="bg-card__cat">{{ product.type | default: product.vendor }}</div>
+            <h3 class="bg-card__title">{{ product.title }}</h3>
+            <div class="bg-card__row">
+              <span class="bg-price">
+                {{ product.price | money_without_trailing_zeros }}
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="bg-price__was">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                {%- endif -%}
+              </span>
+              <span class="bg-view">View &rarr;</span>
+            </div>
+          </div>
+        </a>
+      {%- else -%}
+        <div class="bg-empty">
+          <div class="bg-empty__icon">&#9881;</div>
+          <p class="bg-empty__msg">No products here yet. The garage is restocking.</p>
+          <a class="bg-viewall" href="{{ routes.all_products_collection_url }}">Browse everything &rarr;</a>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+    <nav class="bg-pager">
+      {%- if paginate.previous -%}<a class="bg-pager__btn" href="{{ paginate.previous.url }}">&larr; Prev</a>{%- endif -%}
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <a class="bg-pager__num" href="{{ part.url }}">{{ part.title }}</a>
+        {%- else -%}
+          <span class="bg-pager__num{% if part.title == paginate.current_page %} is-active{% endif %}">{{ part.title }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if paginate.next -%}<a class="bg-pager__btn" href="{{ paginate.next.url }}">Next &rarr;</a>{%- endif -%}
+    </nav>
+    {%- endif -%}
+    {%- endpaginate -%}
+
+  </section>
+</div>
+{% schema %}
+{
+  "name": "BG Collection",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker above title", "default": "// Workshop inventory" },
+    { "type": "checkbox", "id": "show_desc", "label": "Show collection description", "default": true },
+    { "type": "checkbox", "id": "show_filters", "label": "Show tag filters", "default": true },
+    { "type": "checkbox", "id": "show_sort", "label": "Show sort dropdown", "default": true },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 16 }
+  ],
+  "presets": [ { "name": "BG Collection" } ]
+}
+{% endschema %}
