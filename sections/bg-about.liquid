@@ -1,0 +1,223 @@
+{{ 'bg-theme.css' | asset_url | stylesheet_tag }}
+<div class="bg-wrap bg-about" id="bg-about-{{ section.id }}">
+
+  <!-- HERO -->
+  <section class="bg-abthero">
+    <div class="bg-abthero__inner">
+      <div class="bg-abthero__copy">
+        {%- if section.settings.eyebrow != blank -%}<div class="bg-eyebrow"><i></i>{{ section.settings.eyebrow }}</div>{%- endif -%}
+        <h1 class="bg-abthero__title">{{ section.settings.title_top }}<br><span>{{ section.settings.title_bottom }}</span></h1>
+        {%- if section.settings.lede != blank -%}<div class="bg-abthero__lede">{{ section.settings.lede }}</div>{%- endif -%}
+        {%- if section.settings.body != blank -%}<div class="bg-abthero__body">{{ section.settings.body }}</div>{%- endif -%}
+        {%- if section.settings.signoff != blank -%}<div class="bg-abthero__signoff">{{ section.settings.signoff }}</div>{%- endif -%}
+      </div>
+      <div class="bg-abthero__art">
+        <div class="bg-abthero__disc">
+          {%- if section.settings.badge != blank -%}
+            <img src="{{ section.settings.badge | image_url: width: 900 }}" alt="{{ shop.name | escape }} badge">
+          {%- else -%}
+            <img src="{{ 'bite-garage-badge.png' | asset_url }}" alt="{{ shop.name | escape }} badge">
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="bg-section bg-story">
+    {%- if section.settings.story_kicker != blank -%}<div class="bg-kicker">{{ section.settings.story_kicker }}</div>{%- endif -%}
+    <h2 class="bg-h2 bg-story__h">{{ section.settings.story_heading }}</h2>
+    <div class="bg-story__cols">
+      <div class="bg-story__col">{{ section.settings.story_left }}</div>
+      <div class="bg-story__col">{{ section.settings.story_right }}</div>
+    </div>
+
+    {%- assign values = section.blocks | where: 'type', 'value' -%}
+    {%- if values.size > 0 -%}
+    <div class="bg-vgrid">
+      {%- for block in values -%}
+        <div class="bg-vcard" {{ block.shopify_attributes }}>
+          <span class="bg-vcard__icon">
+            {%- case block.settings.icon -%}
+              {%- when 'brain' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5a3 3 0 0 0-3 3M12 5a3 3 0 0 1 3 3M9 8a3 3 0 0 0-3 3 3 3 0 0 0 1 5M15 8a3 3 0 0 1 3 3 3 3 0 0 1-1 5M7 16a3 3 0 0 0 5 2 3 3 0 0 0 5-2M12 8v10"/></svg>
+              {%- when 'dumbbell' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 8v8M4 10v4M18 8v8M20 10v4M6 12h12"/></svg>
+              {%- when 'shirt' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 4 5 6l1 4 2-1v9h8V9l2 1 1-4-4-2a3 3 0 0 1-6 0Z"/></svg>
+              {%- when 'question' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2M12 17h.01"/></svg>
+              {%- when 'wrench' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 7a4 4 0 0 0-5 5l-5 5 2 2 5-5a4 4 0 0 0 5-5l-2 2-2-2 2-2Z"/></svg>
+              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>
+            {%- endcase -%}
+          </span>
+          <h3 class="bg-vcard__title">{{ block.settings.title }}</h3>
+          <div class="bg-vcard__body">{{ block.settings.body }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </section>
+
+  <!-- PROCESS -->
+  {%- assign steps = section.blocks | where: 'type', 'step' -%}
+  {%- if steps.size > 0 -%}
+  <section class="bg-process">
+    <div class="bg-process__inner">
+      {%- if section.settings.proc_kicker != blank -%}<div class="bg-kicker">{{ section.settings.proc_kicker }}</div>{%- endif -%}
+      <h2 class="bg-h2 bg-process__h">{{ section.settings.proc_heading }}</h2>
+      <div class="bg-steps">
+        {%- for block in steps -%}
+          <div class="bg-step" {{ block.shopify_attributes }}>
+            <div class="bg-step__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+            <h3 class="bg-step__title">{{ block.settings.title }}</h3>
+            <div class="bg-step__body">{{ block.settings.body }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- FOUNDER -->
+  {%- if section.settings.founder_name != blank -%}
+  <section class="bg-section bg-founder">
+    <div class="bg-founder__card">
+      <div class="bg-founder__media">
+        {%- if section.settings.founder_image != blank -%}
+          <img src="{{ section.settings.founder_image | image_url: width: 900 }}" alt="{{ section.settings.founder_name | escape }}">
+        {%- else -%}
+          <span class="bg-slot">&#9634; Founder photo</span>
+        {%- endif -%}
+      </div>
+      <div class="bg-founder__body">
+        {%- if section.settings.founder_kicker != blank -%}<div class="bg-kicker">{{ section.settings.founder_kicker }}</div>{%- endif -%}
+        <h2 class="bg-founder__name">{{ section.settings.founder_name }}</h2>
+        {%- if section.settings.founder_role != blank -%}<div class="bg-founder__role">{{ section.settings.founder_role }}</div>{%- endif -%}
+        {%- if section.settings.founder_text != blank -%}<div class="bg-founder__text">{{ section.settings.founder_text }}</div>{%- endif -%}
+        {%- if section.settings.founder_cta_label != blank -%}
+          <a class="bg-btn bg-btn--yellow" href="{{ section.settings.founder_cta_link }}">{{ section.settings.founder_cta_label }} &rarr;</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- CTA -->
+  <section class="bg-abtcta">
+    <div class="bg-abtcta__inner">
+      <h2 class="bg-abtcta__h">{{ section.settings.cta_heading }}</h2>
+      <ul class="bg-abtcta__list">
+        {%- assign clist = section.blocks | where: 'type', 'checklist' -%}
+        {%- for block in clist -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="bg-abtcta__ic">
+              {%- case block.settings.icon -%}
+                {%- when 'clock' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                {%- when 'hanger' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 7a2 2 0 1 1 2 2c-1 0-2 .8-2 2m0 0L4 17h16l-8-5Z"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 7a4 4 0 0 0-5 5l-5 5 2 2 5-5a4 4 0 0 0 5-5l-2 2-2-2 2-2Z"/></svg>
+              {%- endcase -%}
+            </span>{{ block.settings.text }}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.cta_label != blank -%}
+        <a class="bg-abtcta__btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} &rarr;</a>
+      {%- endif -%}
+    </div>
+  </section>
+
+</div>
+{% schema %}
+{
+  "name": "BG About",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow pill", "default": "Est. on the workbench" },
+    { "type": "text", "id": "title_top", "label": "Title line 1", "default": "The" },
+    { "type": "text", "id": "title_bottom", "label": "Title line 2 (yellow)", "default": "Garage" },
+    { "type": "richtext", "id": "lede", "label": "Lede", "default": "<p>Designed by a patient. Built for Bite Mechanics.</p>" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>What started as one person's search for better answers became a growing collection of art, ideas, and gear for people who believe their health belongs in their own hands.</p>" },
+    { "type": "richtext", "id": "signoff", "label": "Sign-off", "default": "<p>Clock in.<br>Grab your uniform.<br>The garage is open.</p>" },
+    { "type": "image_picker", "id": "badge", "label": "Badge artwork (defaults to bundled badge)" },
+
+    { "type": "header", "content": "Story" },
+    { "type": "text", "id": "story_kicker", "label": "Kicker", "default": "// How it started" },
+    { "type": "text", "id": "story_heading", "label": "Heading", "default": "Built by a patient. For future Bite Mechanics." },
+    { "type": "richtext", "id": "story_left", "label": "Left column", "default": "<p>This didn't start in a boardroom. It started after too many appointments, too many unanswered questions, and one simple realization:</p><p><strong>I got tired of believing someone else knew my body better than I did.</strong></p><p>So I started learning.</p>" },
+    { "type": "richtext", "id": "story_right", "label": "Right column", "default": "<p>Every design represents curiosity, personal responsibility, and the belief that nobody will ever care about your body more than you do.</p><p>Bite Mechanic exists to celebrate the people willing to ask better questions, build better habits, and take ownership of their own health.</p>" },
+
+    { "type": "header", "content": "Process band" },
+    { "type": "text", "id": "proc_kicker", "label": "Kicker", "default": "// On the workbench" },
+    { "type": "text", "id": "proc_heading", "label": "Heading", "default": "How a Bite Mechanic makes the merch" },
+
+    { "type": "header", "content": "Founder" },
+    { "type": "text", "id": "founder_kicker", "label": "Kicker", "default": "// Meet the Bite Mechanic" },
+    { "type": "text", "id": "founder_name", "label": "Name", "default": "Hi, I'm Dan." },
+    { "type": "text", "id": "founder_role", "label": "Role", "default": "Designer. Illustrator. Professional doodler." },
+    { "type": "richtext", "id": "founder_text", "label": "Bio", "default": "<p>After years of searching for answers, I stopped waiting for someone else to solve my problems and started learning everything I could about my own body.</p><p>Bite Mechanic is my way of sharing that journey through art, ideas, and products that encourage people to stay curious, think independently, and become the expert on the one body they'll have for life.</p>" },
+    { "type": "image_picker", "id": "founder_image", "label": "Founder photo" },
+    { "type": "text", "id": "founder_cta_label", "label": "Founder CTA label", "default": "Follow @bitemechanic" },
+    { "type": "url", "id": "founder_cta_link", "label": "Founder CTA link" },
+
+    { "type": "header", "content": "Bottom CTA" },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Are you ready to become a certified Bite Mechanic?" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop the merch" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value card",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "question",
+          "options": [
+            { "value": "question", "label": "Question" },
+            { "value": "brain", "label": "Brain" },
+            { "value": "dumbbell", "label": "Dumbbell" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "check", "label": "Check" }
+          ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Think for yourself" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Ask better questions. Learn how your body works. Stay curious.</p>" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Process step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Design" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Every idea starts with curiosity.</p>" }
+      ]
+    },
+    {
+      "type": "checklist",
+      "name": "CTA checklist item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "clock",
+          "options": [
+            { "value": "clock", "label": "Clock" },
+            { "value": "hanger", "label": "Hanger" },
+            { "value": "wrench", "label": "Wrench" }
+          ] },
+        { "type": "text", "id": "text", "label": "Text", "default": "Clock in." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BG About",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "question", "title": "Think for yourself", "body": "<p>Ask better questions. Learn how your body works. Stay curious.</p>" } },
+        { "type": "value", "settings": { "icon": "dumbbell", "title": "Build better habits", "body": "<p>Comfort. Movement. Breathing. Recovery. Small choices. Every day.</p>" } },
+        { "type": "value", "settings": { "icon": "shirt", "title": "Printed to order", "body": "<p>Every Bite Mechanic product is produced fresh through Printful when you order. No warehouses. No wasted inventory. Just quality gear built for the next mechanic.</p>" } },
+        { "type": "step", "settings": { "title": "Design", "body": "<p>Every idea starts with curiosity.</p>" } },
+        { "type": "step", "settings": { "title": "Build", "body": "<p>Every piece is refined until it earns the Bite Mechanic badge.</p>" } },
+        { "type": "step", "settings": { "title": "Print", "body": "<p>Printful produces every order fresh.</p>" } },
+        { "type": "step", "settings": { "title": "Ship", "body": "<p>Straight from the workshop to your front door.</p>" } },
+        { "type": "checklist", "settings": { "icon": "clock", "text": "Clock in." } },
+        { "type": "checklist", "settings": { "icon": "hanger", "text": "Grab your uniform." } },
+        { "type": "checklist", "settings": { "icon": "wrench", "text": "The garage is open." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

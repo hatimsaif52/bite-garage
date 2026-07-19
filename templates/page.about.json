@@ -1,0 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "bg-about",
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "question", "title": "Think for yourself", "body": "<p>Ask better questions. Learn how your body works. Stay curious.</p>" } },
+        "v2": { "type": "value", "settings": { "icon": "dumbbell", "title": "Build better habits", "body": "<p>Comfort. Movement. Breathing. Recovery. Small choices. Every day.</p>" } },
+        "v3": { "type": "value", "settings": { "icon": "shirt", "title": "Printed to order", "body": "<p>Every Bite Mechanic product is produced fresh through Printful when you order. No warehouses. No wasted inventory. Just quality gear built for the next mechanic.</p>" } },
+        "s1": { "type": "step", "settings": { "title": "Design", "body": "<p>Every idea starts with curiosity.</p>" } },
+        "s2": { "type": "step", "settings": { "title": "Build", "body": "<p>Every piece is refined until it earns the Bite Mechanic badge.</p>" } },
+        "s3": { "type": "step", "settings": { "title": "Print", "body": "<p>Printful produces every order fresh.</p>" } },
+        "s4": { "type": "step", "settings": { "title": "Ship", "body": "<p>Straight from the workshop to your front door.</p>" } },
+        "c1": { "type": "checklist", "settings": { "icon": "clock", "text": "Clock in." } },
+        "c2": { "type": "checklist", "settings": { "icon": "hanger", "text": "Grab your uniform." } },
+        "c3": { "type": "checklist", "settings": { "icon": "wrench", "text": "The garage is open." } }
+      },
+      "block_order": ["v1", "v2", "v3", "s1", "s2", "s3", "s4", "c1", "c2", "c3"],
+      "settings": {
+        "eyebrow": "Est. on the workbench",
+        "title_top": "The",
+        "title_bottom": "Garage"
+      }
+    }
+  },
+  "order": ["main"]
+}
