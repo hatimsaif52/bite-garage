@@ -151,7 +151,7 @@ a.bg-info__val:hover{ color:#F4B52A; }
 
 /* story */
 .bg-story{ padding-top:66px; padding-bottom:20px; }
-.bg-story__h{ font-size:clamp(26px,2.9vw,40px); margin-bottom:52px; }
+.bg-story__h{ font-size:clamp(26px,2.9vw,40px) !important; margin-bottom: 20px !important; }
 .bg-story__cols{ display:grid; grid-template-columns:1fr 1fr; gap:44px; margin-bottom:52px; }
 .bg-story__col{ font-family:Archivo,sans-serif; font-size:16.5px; line-height:1.65; color:#3A332A; }
 .bg-story__col p{ margin:0 0 16px; color:#3A332A; max-width:none; }
@@ -171,7 +171,7 @@ a.bg-info__val:hover{ color:#F4B52A; }
 .bg-process{ background:#2350C8; color:#F4E8CE; border-top:3px solid #181410; border-bottom:3px solid #181410; margin-top:56px; }
 .bg-process__inner{ max-width:1280px; margin:0 auto; padding:56px 28px 60px; }
 .bg-process .bg-kicker{ color:#bcd0ff; }
-.bg-process__h{ color:#F4E8CE; font-size:clamp(26px,2.9vw,40px); margin-bottom:54px; }
+.bg-process__h{ color:#F4E8CE; font-size:clamp(26px,2.9vw,40px) !important; margin-bottom:20px !important; }
 .bg-steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
 .bg-step{ border:3px solid #F4E8CE; border-radius:14px; padding:22px 22px 26px; background:#1c40a3; box-shadow:6px 6px 0 #181410; }
 .bg-step__num{ font-family:'Alfa Slab One',serif; font-size:46px; line-height:1; color:#F4B52A; margin-bottom:10px; }
