@@ -13,36 +13,33 @@
     <div class="bg-contact__grid">
 
       <div class="bg-contact__formwrap">
-        {%- assign posted = false -%}
-        {%- if form.posted_successfully? -%}{%- assign posted = true -%}{%- endif -%}
-        {%- if posted -%}
-          <div class="bg-formsuccess">&#10003; Thanks &mdash; your message is in the shop queue. We'll get back within 1&ndash;2 business days.</div>
-        {%- endif -%}
         {%- form 'contact', id: 'bg-contact-form' -%}
-          {%- if form.errors -%}
-            <div class="bg-formerror">
-              Please fix: {{ form.errors | default_errors }}
+          {%- if form.posted_successfully? -%}
+            <div class="bg-formsuccess">&#10003; Thanks &mdash; your message is in the shop queue. We'll get back within 1&ndash;2 business days.</div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="bg-formerror">Please fix: {{ form.errors | default_errors }}</div>
+            {%- endif -%}
+            <div class="bg-field__row">
+              <label class="bg-field">
+                <span class="bg-field__label">Name</span>
+                <input type="text" name="contact[name]" value="{{ form.name }}" required>
+              </label>
+              <label class="bg-field">
+                <span class="bg-field__label">Email</span>
+                <input type="email" name="contact[email]" value="{{ form.email }}" required>
+              </label>
             </div>
+            <label class="bg-field">
+              <span class="bg-field__label">Subject</span>
+              <input type="text" name="contact[subject]" value="{{ form.subject }}" placeholder="Order help, wholesale, press…">
+            </label>
+            <label class="bg-field">
+              <span class="bg-field__label">Message</span>
+              <textarea name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+            </label>
+            <button type="submit" class="bg-checkout bg-checkout--form">Send message &rarr;</button>
           {%- endif -%}
-          <div class="bg-field__row">
-            <label class="bg-field">
-              <span class="bg-field__label">Name</span>
-              <input type="text" name="contact[name]" value="{{ form.name }}" required>
-            </label>
-            <label class="bg-field">
-              <span class="bg-field__label">Email</span>
-              <input type="email" name="contact[email]" value="{{ form.email }}" required>
-            </label>
-          </div>
-          <label class="bg-field">
-            <span class="bg-field__label">Subject</span>
-            <input type="text" name="contact[subject]" value="{{ form.subject }}" placeholder="Order help, wholesale, press…">
-          </label>
-          <label class="bg-field">
-            <span class="bg-field__label">Message</span>
-            <textarea name="contact[body]" rows="6" required>{{ form.body }}</textarea>
-          </label>
-          <button type="submit" class="bg-checkout bg-checkout--form">Send message &rarr;</button>
         {%- endform -%}
       </div>
 
