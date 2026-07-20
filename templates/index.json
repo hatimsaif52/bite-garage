@@ -87,6 +87,7 @@
         },
         "c3": {
           "type": "chip",
+          "disabled": true,
           "settings": {
             "text": "Shipped worldwide"
           }
