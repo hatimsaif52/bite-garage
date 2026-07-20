@@ -117,10 +117,10 @@
         "founder_text": "<p>After years of searching for answers, I stopped waiting for someone else to solve my problems and started learning everything I could about my own body.</p><p>Bite Mechanic is my way of sharing that journey through art, ideas, and products that encourage people to stay curious, think independently, and become the expert on the one body they'll have for life.</p>",
         "founder_image": "shopify://shop_images/image_picker_D7023A48-6176-4B45-9645-1393C51F7C48-13852-000002203AE784E8.png",
         "founder_cta_label": "Follow @bitemechanic",
-        "founder_cta_link": "",
+        "founder_cta_link": "https://www.instagram.com/bitemechanic",
         "cta_heading": "Are you ready to become a certified Bite Mechanic?",
         "cta_label": "Shop the merch",
-        "cta_link": ""
+        "cta_link": "shopify://collections/all"
       }
     }
   },
