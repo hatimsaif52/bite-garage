@@ -22,7 +22,7 @@
         "s2": {
           "type": "stat",
           "settings": {
-            "value": "24h",
+            "value": "365  24/7",
             "label": "print & pack"
           }
         },
