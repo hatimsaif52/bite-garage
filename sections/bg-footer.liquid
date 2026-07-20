@@ -31,11 +31,17 @@
           <p style="margin-bottom:14px;">{{ section.settings.news_text }}</p>
           {%- assign news_id = 'bg-news-' | append: section.id -%}
           {%- form 'customer', id: news_id, class: 'bg-news' -%}
-            <input type="hidden" name="contact[tags]" value="newsletter">
-            <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder }}" required>
-            <button type="submit">{{ section.settings.news_button }}</button>
+            {%- if form.posted_successfully? -%}
+              <div class="bg-news__msg is-ok" role="status">{{ section.settings.news_done }}</div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div class="bg-news__msg is-err" role="status">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email | default: section.settings.news_error }}</div>
+              {%- endif -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder }}" required>
+              <button type="submit">{{ section.settings.news_button }}</button>
+            {%- endif -%}
           {%- endform -%}
-          <div class="bg-news__msg" data-news-msg hidden role="status" aria-live="polite"></div>
         </div>
       </div>
 
@@ -50,52 +56,6 @@
     </div>
   </footer>
 </div>
-
-<script>
-(function(){
-  var form=document.getElementById('bg-news-{{ section.id }}');
-  if(!form) return;
-  var msg=form.parentNode.querySelector('[data-news-msg]');
-  var btn=form.querySelector('button[type=submit]');
-  var btnText=btn.textContent;
-  var okMsg={{ section.settings.news_success | json }};
-  var errMsg={{ section.settings.news_error | json }};
-  var doneMsg={{ section.settings.news_done | json }};
-  var storeKey='bg-news-subscribed';
-  function collapse(text){
-    show(text, true);
-    form.hidden=true;
-  }
-  if(localStorage.getItem(storeKey)==='1'){ collapse(doneMsg); }
-  function show(text, ok){
-    msg.textContent=text;
-    msg.classList.toggle('is-ok', ok);
-    msg.classList.toggle('is-err', !ok);
-    msg.hidden=false;
-  }
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    msg.hidden=true;
-    btn.disabled=true; btn.textContent='…';
-    fetch(form.action,{ method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
-      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return {status:r.status, data:d}; }); })
-      .then(function(res){
-        var errs=res.data && res.data.errors;
-        if(res.status>=200 && res.status<300 && !errs){
-          form.reset();
-          try{ localStorage.setItem(storeKey,'1'); }catch(e){}
-          collapse(doneMsg);
-        } else {
-          var t=errMsg;
-          if(errs){ if(errs.email){ t=(Array.isArray(errs.email)?errs.email[0]:errs.email); } else if(typeof errs==='string'){ t=errs; } }
-          show(t, false);
-        }
-      })
-      .catch(function(){ show(errMsg, false); })
-      .then(function(){ btn.disabled=false; btn.textContent=btnText; });
-  });
-})();
-</script>
 
 {% schema %}
 {
