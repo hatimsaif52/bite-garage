@@ -151,6 +151,9 @@ a.bg-info__val:hover{ color:#F4B52A; }
 
 /* story */
 .bg-story{ padding-top:66px; padding-bottom:20px; }
+.bg-news__msg{ margin-top:12px; font-family:'Space Mono',monospace; font-size:12.5px; line-height:1.4; letter-spacing:.02em; padding:10px 12px; border-radius:8px; border:2px solid currentColor; }
+.bg-news__msg.is-ok{ color:#8fd67a; }
+.bg-news__msg.is-err{ color:#ef8a7f; }
 .bg-story__h{ font-size:clamp(26px,2.9vw,40px) !important; margin-bottom: 20px !important; }
 .bg-story__cols{ display:grid; grid-template-columns:1fr 1fr; gap:44px; margin-bottom:52px; }
 .bg-story__col{ font-family:Archivo,sans-serif; font-size:16.5px; line-height:1.65; color:#3A332A; }

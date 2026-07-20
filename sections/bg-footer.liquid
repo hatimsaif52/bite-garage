@@ -29,11 +29,12 @@
         <div>
           <h4>{{ section.settings.news_heading }}</h4>
           <p style="margin-bottom:14px;">{{ section.settings.news_text }}</p>
-          {%- form 'customer', class: 'bg-news' -%}
+          {%- form 'customer', id: 'bg-news-' | append: section.id, class: 'bg-news' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">
             <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder }}" required>
             <button type="submit">{{ section.settings.news_button }}</button>
           {%- endform -%}
+          <div class="bg-news__msg" data-news-msg hidden role="status" aria-live="polite"></div>
         </div>
       </div>
 
@@ -49,6 +50,52 @@
   </footer>
 </div>
 
+<script>
+(function(){
+  var form=document.getElementById('bg-news-{{ section.id }}');
+  if(!form) return;
+  var msg=form.parentNode.querySelector('[data-news-msg]');
+  var btn=form.querySelector('button[type=submit]');
+  var btnText=btn.textContent;
+  var okMsg={{ section.settings.news_success | json }};
+  var errMsg={{ section.settings.news_error | json }};
+  var doneMsg={{ section.settings.news_done | json }};
+  var storeKey='bg-news-subscribed';
+  function collapse(text){
+    show(text, true);
+    form.hidden=true;
+  }
+  if(localStorage.getItem(storeKey)==='1'){ collapse(doneMsg); }
+  function show(text, ok){
+    msg.textContent=text;
+    msg.classList.toggle('is-ok', ok);
+    msg.classList.toggle('is-err', !ok);
+    msg.hidden=false;
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    msg.hidden=true;
+    btn.disabled=true; btn.textContent='…';
+    fetch(form.action,{ method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return {status:r.status, data:d}; }); })
+      .then(function(res){
+        var errs=res.data && res.data.errors;
+        if(res.status>=200 && res.status<300 && !errs){
+          form.reset();
+          try{ localStorage.setItem(storeKey,'1'); }catch(e){}
+          collapse(doneMsg);
+        } else {
+          var t=errMsg;
+          if(errs){ if(errs.email){ t=(Array.isArray(errs.email)?errs.email[0]:errs.email); } else if(typeof errs==='string'){ t=errs; } }
+          show(t, false);
+        }
+      })
+      .catch(function(){ show(errMsg, false); })
+      .then(function(){ btn.disabled=false; btn.textContent=btnText; });
+  });
+})();
+</script>
+
 {% schema %}
 {
   "name": "BG Footer",
@@ -62,6 +109,9 @@
     { "type": "text", "id": "news_text", "label": "Text", "default": "Get first dibs on every drop straight from the workshop." },
     { "type": "text", "id": "news_placeholder", "label": "Input placeholder", "default": "you@garage.com" },
     { "type": "text", "id": "news_button", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "news_success", "label": "Success message", "default": "You're in — welcome to the crew." },
+    { "type": "text", "id": "news_done", "label": "Already-subscribed message (replaces form)", "default": "✓ You're subscribed — welcome to the crew." },
+    { "type": "text", "id": "news_error", "label": "Error message", "default": "Something jammed. Check your email and try again." },
     { "type": "header", "content": "Bottom bar" },
     { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Bite Garage · Fulfilled by Gelato" },
     { "type": "link_list", "id": "policy_menu", "label": "Policy menu" }
