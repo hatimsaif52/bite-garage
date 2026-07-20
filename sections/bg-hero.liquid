@@ -33,7 +33,7 @@
           <div class="bg-hero__img" style="display:flex;align-items:center;justify-content:center;background:#EFE2C2;"><span class="bg-slot">Badge artwork</span></div>
         {%- endif -%}
         {%- if section.settings.stamp_text != blank -%}
-          <div class="bg-stamp">{{ section.settings.stamp_text }}</div>
+          <div class="bg-stamp">{{ section.settings.stamp_text | newline_to_br }}</div>
         {%- endif -%}
       </div>
     </div>
@@ -53,7 +53,7 @@
     { "type": "text", "id": "cta2_label", "label": "Secondary CTA label", "default": "New Drops" },
     { "type": "url", "id": "cta2_link", "label": "Secondary CTA link" },
     { "type": "image_picker", "id": "image", "label": "Hero image / badge" },
-    { "type": "text", "id": "stamp_text", "label": "Corner stamp (use line breaks with Shift+Enter)", "default": "Certified Fresh" }
+    { "type": "textarea", "id": "stamp_text", "label": "Corner stamp (use line breaks with Shift+Enter)", "default": "Certified Fresh" }
   ],
   "blocks": [
     {

@@ -36,10 +36,32 @@
           {{ section.settings.cart_label }}
           <span class="bg-cart__count">{{ cart.item_count }}</span>
         </a>
+        <button type="button" class="bg-burger" aria-label="Open menu" aria-expanded="false" aria-controls="bg-mnav-{{ section.id }}" data-burger>
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
+    <nav class="bg-mnav" id="bg-mnav-{{ section.id }}" data-mnav hidden>
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
   </header>
 </div>
+
+<script>
+(function(){
+  var burger=document.querySelector('[data-burger]');
+  var mnav=document.getElementById('bg-mnav-{{ section.id }}');
+  if(!burger||!mnav) return;
+  burger.addEventListener('click',function(){
+    var open=burger.getAttribute('aria-expanded')==='true';
+    burger.setAttribute('aria-expanded', String(!open));
+    burger.classList.toggle('is-open', !open);
+    mnav.hidden=open;
+  });
+})();
+</script>
 
 {% schema %}
 {
