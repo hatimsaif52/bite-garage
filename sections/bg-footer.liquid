@@ -29,7 +29,8 @@
         <div>
           <h4>{{ section.settings.news_heading }}</h4>
           <p style="margin-bottom:14px;">{{ section.settings.news_text }}</p>
-          {%- form 'customer', id: 'bg-news-' | append: section.id, class: 'bg-news' -%}
+          {%- assign news_id = 'bg-news-' | append: section.id -%}
+          {%- form 'customer', id: news_id, class: 'bg-news' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">
             <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder }}" required>
             <button type="submit">{{ section.settings.news_button }}</button>
