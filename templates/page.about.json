@@ -120,7 +120,7 @@
         "founder_cta_link": "https://www.instagram.com/bitemechanic",
         "cta_heading": "Are you ready to become a certified Bite Mechanic?",
         "cta_label": "Shop the merch",
-        "cta_link": ""
+        "cta_link": "shopify://collections/all"
       }
     }
   },
