@@ -114,42 +114,48 @@
         "p1": {
           "type": "post",
           "settings": {
-            "caption": "spin szn",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_23_PM.png",
+            "caption": "",
             "link": ""
           }
         },
         "p2": {
           "type": "post",
           "settings": {
-            "caption": "new tee",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_21_PM.png",
+            "caption": "",
             "link": ""
           }
         },
         "p3": {
           "type": "post",
           "settings": {
-            "caption": "sticker drop",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_24_PM.png",
+            "caption": "",
             "link": ""
           }
         },
         "p4": {
           "type": "post",
           "settings": {
-            "caption": "workbench",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_25_PM.png",
+            "caption": "",
             "link": ""
           }
         },
         "p5": {
           "type": "post",
           "settings": {
-            "caption": "pit crew",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_25_PM_1.png",
+            "caption": "",
             "link": ""
           }
         },
         "p6": {
           "type": "post",
           "settings": {
-            "caption": "garage life",
+            "image": "shopify://shop_images/3-Instagram-07-23-2026_04_26_PM.png",
+            "caption": "",
             "link": ""
           }
         }
